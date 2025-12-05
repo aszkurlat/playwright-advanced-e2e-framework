@@ -21,7 +21,7 @@ PLAYWRIGHT-ADVANCED-E2E-FRAMEWORK/
 │ ├── functional/           # Functional test cases
 │ ├── helpers/              # Helper functions, utilities, builders
 │ └── page-objects/         # Page Object Model (POM) classes
-├── tests-examples/          # Auto-generated Playwright example tests
+├── tests-examples/         # Auto-generated Playwright example tests
 ├── .env                    # Environment variables for local runs
 ├── .env.example            # Template for environment variables
 ├── .gitignore              # Git ignored files and folders
