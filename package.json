@@ -6,6 +6,7 @@
   "scripts": {
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "login": "npx playwright test tests/functional/login.spec.ts --headed",
+    "make-appointment": "npx playwright test tests/functional/make.appointment.spec.ts --headed",
     "demo:firefox": "npx playwright test tests/demo/mytest.spec.ts --project=firefox --headed"
   },
   "keywords": [],
