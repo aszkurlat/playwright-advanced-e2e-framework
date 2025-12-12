@@ -51,6 +51,45 @@ test.describe("Make Appointment", () => {
         }
 
         console.log(`>> List of Options: ${listOfOptions}`);
+        /**
+        * ELEMENT: Checkbox/Radio button
+        *
+        * @actions
+        * 1. ✅Assert the default option - to be checked/unchecked
+        * 2. ✅ Check/uncheck
+        *
+        * @notes
+        * - Radio button - Allows to select only one option
+        * - Checkbox - Allows for multi-entry
+        */
+
+        // Checkbox
+        // await page.getByText("Apply for hospital readmission").click();
+        await page.getByText("Apply for hospital readmission").check();
+        await page.getByText("Apply for hospital readmission").uncheck();
+
+        // Radio button
+        // Assert the default option - to be checked/unchecked
+        await expect(page.getByText("Medicare")).toBeChecked();
+
+        await page.getByText("Medicaid").check();
+        await expect(page.getByText("Medicare")).not.toBeChecked();
+
+        // Date input box
+        await page.getByRole("textbox", { name: "Visit Date (Required)" }).click();
+        await page.getByRole("textbox", { name: "Visit Date (Required)" }).fill("05/10/2027");
+        await page.getByRole("textbox", { name: "Visit Date (Required)" }).press("Enter");
+
+        // Multi-line comments input box
+        await page.getByRole("textbox", { name: "Comment" }).click();
+        await page.getByRole("textbox", { name: "Comment" }).fill("This is a multi-line comments\ncaptured by Playwright codegen!");
+
+        // Button
+        await page.getByRole("button", { name: "Book Appointment" }).click();
+
+        // Assertion
+        await expect(page.locator("h2")).toContainText("Appointment Confirmation");
+        await expect(page.getByRole("link", { name: "Go to Homepage" })).toBeVisible();
 
     });
 });
