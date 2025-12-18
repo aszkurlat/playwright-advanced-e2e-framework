@@ -6,6 +6,7 @@ test.describe('Inventory Management', () => {
         await page.locator('[data-test="username"]').fill('standard_user');
         await page.locator('[data-test="password"]').fill('secret_sauce');
         await page.locator('[data-test="login-button"]').click();
+
         // Assertion
         await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
         await expect(page).toHaveURL(/.*\/inventory.html/);
@@ -20,6 +21,7 @@ test.describe('Inventory Management', () => {
         // Get product name and prices
         let totalProducts = await productsElms.count();
 
+        let priceArr: string[] = [];
         for (let i = 0; i < totalProducts; i++) {
             let eleNode = productsElms.nth(i);
 
@@ -29,9 +31,28 @@ test.describe('Inventory Management', () => {
             // Price
             let price = await eleNode.locator(".inventory_item_price").innerText();
 
-            // Print the results
+            // Print results
             console.log(`Product: ${productName}, price: ${price}`);
+
+            priceArr.push(price);
         }
+
+        console.log(`Original Price Array: ${priceArr}`);
+
+        let priceArrNum = priceArr.map((item) => parseFloat(item.replace("$", "")));
+        console.log(`>> Modified arr: ${priceArrNum}`);
+
+        let priceArrWithInvalidVals = priceArrNum.filter((item) => item <= 0);
+
+        if (priceArrWithInvalidVals.length > 0) {
+            console.log(`ERROR: Zero price values found, ${priceArrWithInvalidVals}`);
+        } else {
+            console.log(`INFO: All prices are non-zero vlaues`);
+        }
+
+        // Assertion
+        expect(priceArrWithInvalidVals, `Found invalid prices: ${priceArrWithInvalidVals}`).toHaveLength(0);
+
     });
 
 });
