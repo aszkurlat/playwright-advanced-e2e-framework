@@ -39,20 +39,16 @@ test.describe('Inventory Management', () => {
 
         console.log(`Original Price Array: ${priceArr}`);
 
-        let priceArrNum = priceArr.map((item) => parseFloat(item.replace("$", "")));
-        console.log(`>> Modified arr: ${priceArrNum}`);
+        // let priceArrNum = priceArr.map((item) => parseFloat(item.replace("$", "")));
+        // console.log(`>> Modified arr: ${priceArrNum}`);
+        // let priceArrWithInvalidVals = priceArrNum.filter((item) => item <= 0);
 
-        let priceArrWithInvalidVals = priceArrNum.filter((item) => item <= 0);
-
-        if (priceArrWithInvalidVals.length > 0) {
-            console.log(`ERROR: Zero price values found, ${priceArrWithInvalidVals}`);
-        } else {
-            console.log(`INFO: All prices are non-zero vlaues`);
-        }
+        const invalidPrices = priceArr
+            .map(price => parseFloat(price.replace("$", "")))
+            .filter(price => price <= 0);
 
         // Assertion
-        expect(priceArrWithInvalidVals, `Found invalid prices: ${priceArrWithInvalidVals}`).toHaveLength(0);
-
+        expect(invalidPrices, `Found invalid prices: ${invalidPrices}`).toHaveLength(0);
     });
 
 });
