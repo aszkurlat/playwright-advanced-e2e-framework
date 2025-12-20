@@ -7,7 +7,7 @@
     "inventory": "npx playwright test tests/functional/inventory.spec.ts --headed",
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "login": "npx playwright test tests/functional/login.spec.ts --headed",
-    "make-appointment": "npx playwright test tests/functional/make.appointment.spec.ts --headed",
+    "make-appointment": "npx playwright test tests/functional/make.appoitment.spec --headed",
     "demo:firefox": "npx playwright test tests/demo/mytest.spec.ts --project=firefox --headed"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/node": "^24.10.1"
+    "@types/node": "^24.10.1",
+    "allure-playwright": "^3.4.3"
   }
 }
