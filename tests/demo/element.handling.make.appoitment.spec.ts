@@ -7,7 +7,15 @@ test.describe("Make Appointment", { annotation: { type: "Feature", description: 
     });
 
     test("Should make an appointment with non-default values",
-        { annotation: { type: "TestCase", description: "TC-123: Appointment with non-default values" } }, async ({ page }) => {
+        { annotation: { type: "TestCase", description: "TC-123: Appointment with non-default values" } },
+        async ({ page, browserName }) => {
+            // skip the test for firefox
+            const isFirefox = browserName === "firefox";
+            test.skip(
+                isFirefox,
+                "Known issue (Firefox): Date picker input does not accept value"
+            );
+
             /**
              * ELEMENT: Dropdown
              *
