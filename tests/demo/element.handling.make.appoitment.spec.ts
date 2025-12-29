@@ -1,13 +1,21 @@
 import { test, expect } from "@playwright/test";
 import { login } from "../helpers/login.helper";
 
-test.describe("Make Appointment", { annotation: { type: "Feature", description: "JIRA-122: Make Appointment flow" } }, () => {
+test.describe("Make Appointment", {
+    annotation: {
+        type: "Feature",
+        description: "JIRA-122: Make Appointment flow"
+    }, tag: "@smoke"
+}, () => {
     test.beforeEach(async ({ page }) => {
         await login(page);
     });
 
     test("Should make an appointment with non-default values",
-        { annotation: { type: "TestCase", description: "TC-123: Appointment with non-default values" } },
+        {
+            annotation: { type: "TestCase", description: "TC-123: Appointment with non-default values" },
+            tag: ["@smoke", "@e2e"]
+        },
         async ({ page, browserName }) => {
             // skip the test for firefox
             const isFirefox = browserName === "firefox";
