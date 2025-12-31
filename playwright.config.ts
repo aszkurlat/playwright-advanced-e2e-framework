@@ -26,6 +26,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   globalSetup: require.resolve('./tests/helpers/global.setup'),
+  globalTeardown: require.resolve('./tests/helpers/global.teardown'),
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html',
@@ -74,6 +75,18 @@ export default defineConfig({
     },
 
     /* Test against mobile viewports. */
+    {
+      name: 'Iphone 14 Pro',
+      use: { ...devices['iPhone 14 Pro'] },
+    },
+    {
+      name: 'Pixel 5',
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'Galaxy S20',
+      use: { ...devices['Galaxy S20'] },
+    },
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
