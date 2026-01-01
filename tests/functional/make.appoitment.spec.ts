@@ -1,7 +1,15 @@
 import { test, expect } from '@playwright/test';
+import { logWithStep } from '../helpers/logger';
 
 test.describe("Make Appointment", () => {
     test.beforeEach("Login with valid creds", async ({ page }, testInfo) => {
+
+        // Get the URL from config file
+        const envConfig = testInfo.project.use as any;
+
+        // Custom logs
+        await logWithStep("info", `Launching the web app in ${envConfig.envName}`)
+
         // Launch URL and assert title and header
         await page.goto('https://katalon-demo-cura.herokuapp.com/');
         await expect(page).toHaveTitle("CURA Healthcare Service");
@@ -18,6 +26,8 @@ test.describe("Make Appointment", () => {
 
         // Assertion
         await expect(page.locator("h2")).toContainText("Make Appointment");
+        await logWithStep("info", `Login successful, navigated to Make Appointment page.`);
+        await logWithStep("error", `This is a sample error log message.`);
 
     });
 
