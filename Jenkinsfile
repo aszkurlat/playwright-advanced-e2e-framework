@@ -1,7 +1,6 @@
 pipeline {
   agent any
   tools { 
-     Nodejs 'node22' // Jenkins > Global Tool Config: NodeJS named "node22"
      Allure 'allure'// Jenkins > Global Tool Config: Allure named "allure"
     }
     options {
@@ -12,21 +11,26 @@ pipeline {
   // -eu: shell safety setting (e -Exit immediately if any command fails; u- Treat unset variables as errors.)
   stages {
     stage('Build') {
-      steps {
-        sh '''
-          set -eu 
-          npm ci
-          npx playwright install
-        '''
-      }
+      nodejs('node22') {
+          sh '''
+            set -eu
+            node -v
+            npm -v
+            npm ci
+            npx playwright install
+          '''
+        }
     }
     stage('Test') {
       steps {
-        sh '''
-          export TEST_USER_NAME="$TEST_CREDS_USR"
-          export TEST_PASSWORD="$TEST_CREDS_PSW"
-          npm run test:make-apt
-        '''
+        nodejs('node22') {
+          sh '''
+            set -eu
+            export TEST_USER_NAME="$TEST_CREDS_USR"
+            export TEST_PASSWORD="$TEST_CREDS_PSW"
+            npm run test:make-apt
+          '''
+        }
       }
       post {
         always {
