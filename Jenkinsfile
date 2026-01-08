@@ -1,8 +1,8 @@
 pipeline {
   agent any
   tools { 
-    nodejs 'node22' // Jenkins > Global Tool Config: NodeJS named "node22"
-     allure 'allure'// Jenkins > Global Tool Config: Allure named "allure"
+     Nodejs 'node22' // Jenkins > Global Tool Config: NodeJS named "node22"
+     Allure 'allure'// Jenkins > Global Tool Config: Allure named "allure"
     }
     options {
     timeout(time: 20, unit: 'MINUTES') // To prevent running for long time
