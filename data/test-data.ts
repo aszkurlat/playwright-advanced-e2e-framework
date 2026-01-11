@@ -7,7 +7,7 @@ export default class TestData {
         ];
     }
 
-    static apiUserCreation() {
+    static apiUserDummyjsonCreation() {
         return [{
             data: {
                 firstName: "Andrew",
@@ -30,5 +30,16 @@ export default class TestData {
                 "Content-Type": "application/json",
             }
         }]
+    }
+
+    static apiUserReqresCreation() {
+        return [
+            {
+                name: "Alex",
+                job: "Thomas",
+                id: "126",
+                createdAt: "2025-10-06T01:35:49.877Z",
+            }
+        ];
     }
 }
