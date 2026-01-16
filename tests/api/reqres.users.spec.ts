@@ -2,6 +2,7 @@ import { test, expect, request } from "@playwright/test";
 import { logWithStep } from "../helpers/logger.js";
 import constants from "../../data/constants.json";
 import TestData from "../../data/test-data.js";
+import fileHelper from "../helpers/file-helper.js";
 
 test.describe("REST API Tests", () => {
     let envConfig = process.env.API_URL ?? "https://reqres.in/api"
@@ -24,6 +25,10 @@ test.describe("REST API Tests", () => {
         // Get list of users
         const userData = await res.json();
         logWithStep("info", `List of users: ${JSON.stringify(userData)}`);
+        
+        // Write the list of users
+        fileHelper.writeFile(`${process.cwd()}/data/api-res/list-of-users.json`, `${JSON.stringify(userData, undefined, 4)}`);
+
     });
 
     // POST Method
