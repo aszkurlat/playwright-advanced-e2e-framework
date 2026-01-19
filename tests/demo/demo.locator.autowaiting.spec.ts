@@ -30,5 +30,17 @@ test.describe('Playwright fundamentals – navigation, locators, auto-waiting', 
             page.locator('#txt-username')
         ).toHaveValue('John Doe');
     });
+    test('Should rely on Playwright auto-waiting', async ({ page }) => {
+        await page.getByRole('link', { name: 'Make Appointment' }).click();
+
+        await page.getByLabel('Username').fill('John Doe');
+        await page.getByLabel('Password').fill('ThisIsNotAPassword');
+        await page.getByRole('button', { name: 'Login' }).click();
+
+        await expect(
+            page.getByRole('heading', { name: 'Make Appointment' })
+        ).toBeVisible();
+    });
+
 
 });
