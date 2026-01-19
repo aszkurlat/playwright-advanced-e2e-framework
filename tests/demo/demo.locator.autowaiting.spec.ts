@@ -13,6 +13,22 @@ test.describe('Playwright fundamentals – navigation, locators, auto-waiting', 
             page.getByRole('heading', { level: 1 })
         ).toHaveText('CURA Healthcare Service');
     });
+    test('Should demonstrate different locator strategies', async ({ page }) => {
+        // getByRole
+        await page.getByRole('link', { name: 'Make Appointment' }).click();
 
-   
+        // getByText
+        await expect(
+            page.getByText('Please login to make appointment.')
+        ).toBeVisible();
+
+        // getByLabel
+        await page.getByLabel('Username').fill('John Doe');
+
+        // locator (CSS)
+        await expect(
+            page.locator('#txt-username')
+        ).toHaveValue('John Doe');
+    });
+
 });
