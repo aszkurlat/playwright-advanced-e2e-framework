@@ -42,5 +42,16 @@ test.describe('Playwright fundamentals – navigation, locators, auto-waiting', 
         ).toBeVisible();
     });
 
+    test('Should validate login form elements state', async ({ page }) => {
+        await page.getByRole('link', { name: 'Make Appointment' }).click();
+
+        const usernameInput = page.getByLabel('Username');
+        const passwordInput = page.getByLabel('Password');
+        const loginButton = page.getByRole('button', { name: 'Login' });
+
+        await expect(usernameInput).toBeVisible();
+        await expect(passwordInput).toBeVisible();
+        await expect(loginButton).toBeEnabled();
+    });
 
 });
