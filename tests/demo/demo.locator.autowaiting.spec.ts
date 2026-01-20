@@ -53,5 +53,16 @@ test.describe('Playwright fundamentals – navigation, locators, auto-waiting', 
         await expect(passwordInput).toBeVisible();
         await expect(loginButton).toBeEnabled();
     });
+    
+    test('Should navigate to login page after clicking Make Appointment', async ({ page }) => {
+        await page.getByRole('link', { name: 'Make Appointment' }).click();
+
+        await expect(page).toHaveURL(/.*profile\.php#login/);
+
+        await expect(
+            page.getByText('Please login to make appointment.')
+        ).toBeVisible();
+    });
+
 
 });
