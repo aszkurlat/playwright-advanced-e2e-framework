@@ -5,7 +5,8 @@
   "validationError": 422
  },
     "REQ_RES_ENDPOINTS" : {
-        "GET_USERS_LIST": "/users?limit=10",
-        "POST_USER": "/users/add"
+
+        "GET_USERS_LIST": "/users?page=2",
+        "POST_USER": "/users"
     }
 }
