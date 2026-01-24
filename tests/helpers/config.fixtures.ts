@@ -11,10 +11,17 @@ import { test as base } from "@playwright/test";
  * @property nopCommerceWeb - The URL for the nopCommerce web application.
  * @property apiURL - The base URL for the API endpoints.
  */
+export type DbConfig = {
+    host?: string;
+    port?: number;
+    user?: string;
+    password?: string;
+    database?: string;
+};
 export type EnvConfig = {
     envName: string;
     appURL: string;
-    dbConfig: {};
+    dbConfig: DbConfig;
     nopCommerceWeb: string;
     apiURL: string;
 };
