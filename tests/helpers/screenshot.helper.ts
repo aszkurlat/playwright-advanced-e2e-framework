@@ -1,4 +1,4 @@
-import { test, type Page } from "@playwright/test";
+import { Locator, test, type Page } from "@playwright/test";
 /**
  * Take a full page screenshot and attach it to the report
  */
@@ -10,5 +10,16 @@ async function takeFullPageScreenshot(page: Page, screenshotName: string) {
         contentType: "image/png",
     });
 }
+/**
+ * Take a screenshot of a specific element and attach it to the report
+ */
+async function takeElementScreenshot(element: Locator, screenshotName: string) {
+    const screenshot = await element.screenshot();
 
-export default { takeFullPageScreenshot };
+    await test.info().attach(screenshotName, {
+        body: screenshot,
+        contentType: "image/png",
+    });
+}
+
+export default { takeFullPageScreenshot, takeElementScreenshot };
