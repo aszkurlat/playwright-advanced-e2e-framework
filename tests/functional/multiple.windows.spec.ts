@@ -1,4 +1,17 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
+
+async function openPopup(
+  parentPage: Page,
+  action: () => Promise<void>
+): Promise<Page> {
+  const [popup] = await Promise.all([
+    parentPage.waitForEvent('popup'),
+    action(),
+  ]);
+
+  await popup.waitForLoadState();
+  return popup;
+}
 
 test.describe('Multiple windows flow', () => {
   test('should open a new window and assert header', async ({ page }) => {
@@ -7,16 +20,13 @@ test.describe('Multiple windows flow', () => {
     await page.getByRole('link', { name: 'Multiple Windows' }).click();
     await expect(page.locator('h3')).toHaveText('Opening a new window');
 
-    // Open new window (popup)
-    const [popup] = await Promise.all([
-      page.waitForEvent('popup'),
-      page.getByRole('link', { name: 'Click Here' }).click(),
-    ]);
+    // Open popup using helper
+    const popup = await openPopup(page, () =>
+      page.getByRole('link', { name: 'Click Here' }).click()
+    );
 
-    await popup.waitForLoadState();
     await expect(popup.locator('h3')).toHaveText('New Window');
 
-    // Close popup and verify parent page
     await popup.close();
     await expect(page).toHaveURL(/\/windows$/);
   });
