@@ -13,7 +13,7 @@ async function openPopup(
   return popup;
 }
 
-test.describe('Multiple windows flow', () => {
+test.describe('@functional @popup Multiple windows flow', () => {
   test('should open a new window and display correct header', async ({ page }) => {
     // ---------- Arrange ----------
     await page.goto('https://the-internet.herokuapp.com/');
