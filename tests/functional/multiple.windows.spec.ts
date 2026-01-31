@@ -14,20 +14,21 @@ async function openPopup(
 }
 
 test.describe('Multiple windows flow', () => {
-  test('should open a new window and assert header', async ({ page }) => {
-    // Navigate to the site and go to Multiple Windows page
+  test('should open a new window and display correct header', async ({ page }) => {
+    // ---------- Arrange ----------
     await page.goto('https://the-internet.herokuapp.com/');
-    await page.getByRole('link', { name: 'Multiple Windows' }).click();
+    const multipleWindowsLink = page.getByRole('link', { name: 'Multiple Windows' });
+    const clickHereLink = page.getByRole('link', { name: 'Click Here' });
+
+    // ---------- Act ----------
+    await multipleWindowsLink.click();
+    const popup = await openPopup(page, () => clickHereLink.click());
+
+    // ---------- Assert ----------
     await expect(page.locator('h3')).toHaveText('Opening a new window');
-
-    // Open popup using helper
-    const popup = await openPopup(page, () =>
-      page.getByRole('link', { name: 'Click Here' }).click()
-    );
-
     await expect(popup.locator('h3')).toHaveText('New Window');
+    await expect(page).toHaveURL(/\/windows$/);
 
     await popup.close();
-    await expect(page).toHaveURL(/\/windows$/);
   });
 });
