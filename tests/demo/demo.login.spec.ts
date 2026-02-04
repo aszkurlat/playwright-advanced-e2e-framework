@@ -20,7 +20,7 @@ test.describe("Login Functionality", () => {
             page.getByRole('heading', { name: 'Make Appointment' })
         ).toBeVisible();
     });
-     test('Should prevent login with incorrect creds', async ({ page }) => {
+    test('Should prevent login with incorrect creds', async ({ page }) => {
         await page.getByLabel('Username').fill('Wrong User');
         await page.getByLabel('Password').fill('WrongPassword');
         await page.getByRole('button', { name: 'Login' }).click();
@@ -29,5 +29,14 @@ test.describe("Login Functionality", () => {
             page.locator('.text-danger')
         ).toHaveText('Login failed! Please ensure the username and password are valid.');
     });
-});
 
+    test('Should not allow login with empty credentials', async ({ page }) => {
+        await page.getByRole('button', { name: 'Login' }).click();
+
+        await expect(page.locator('.text-danger')).toBeVisible();
+
+        await expect(page.getByLabel('Username')).toBeVisible();
+    });
+
+
+});
